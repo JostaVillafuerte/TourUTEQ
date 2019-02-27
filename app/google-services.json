@@ -1,0 +1,104 @@
+{
+  "project_info": {
+    "project_number": "677636986032",
+    "firebase_url": "https://mapsuteq.firebaseio.com",
+    "project_id": "mapsuteq",
+    "storage_bucket": "mapsuteq.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677636986032:android:2c3fa7a296887748",
+        "android_client_info": {
+          "package_name": "com.jonathanvillafuerte.bioface"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677636986032-bbls2k83p2qaflog1u90a7vunad4921b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAygyls_ojByhGjJU_kutgma3UWwZMU0Q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677636986032:android:92d1489b3cdc7df5",
+        "android_client_info": {
+          "package_name": "com.jonathanvillafuerte.geofencing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677636986032-bbls2k83p2qaflog1u90a7vunad4921b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAygyls_ojByhGjJU_kutgma3UWwZMU0Q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677636986032:android:da2be235c600a238",
+        "android_client_info": {
+          "package_name": "com.jonathanvillafuerte.touruteq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677636986032-bbls2k83p2qaflog1u90a7vunad4921b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAygyls_ojByhGjJU_kutgma3UWwZMU0Q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
