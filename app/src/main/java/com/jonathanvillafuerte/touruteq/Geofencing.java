@@ -18,9 +18,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -41,27 +45,41 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.jonathanvillafuerte.touruteq.Interfaces.clickEvent;
 import com.jonathanvillafuerte.touruteq.Remote.APIService;
 
 public class Geofencing extends AppCompatActivity
         implements
+        clickEvent,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         OnMapReadyCallback,
         ResultCallback<Status> {
 
-    public static String user;
+    private TextView txtName, txtEmail, txtUid;
+    private ImageView img;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener authStateListener;
+
+    private String OpcionAcceso = "";
 
     private APIService mService;
     private static final String TAG = Geofencing.class.getSimpleName();
     private Button btnEnviar;
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
+
+
     private Location lastLocation;
 
     private TextView textLat, textLong;
+
+    public static String usuario;
 
     private MapFragment mapFragment;
     public FloatingActionButton fab;
@@ -81,15 +99,34 @@ public class Geofencing extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geofencing);
 
+        txtName = (TextView) findViewById(R.id.txtNombre);
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
+        img = (ImageView) findViewById(R.id.imgPerfil);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail().build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            OpcionAcceso = "F";
+            txtName.setText(user.getDisplayName());
+            txtEmail.setText(user.getEmail());
+            Glide.with(getApplicationContext())
+                    .load(user.getPhotoUrl())
+                    .into(img);
+        }
+
+        usuario = txtName.toString();
+
         textLat = (TextView) findViewById(R.id.lat);
         textLong = (TextView) findViewById(R.id.lon);
-        TextView textView = (TextView) findViewById(R.id.txtError);
         Common.currentToken = FirebaseInstanceId.getInstance().getToken();
         mService = Common.GETFCMClient();
-
-        Bundle bundle = this.getIntent().getExtras();
-        textView.setText(bundle.getString("Nombre"));
-        user = bundle.getString("Nombre");
         initGMaps();
 
         createGoogleApi();
@@ -104,15 +141,41 @@ public class Geofencing extends AppCompatActivity
         });
 
 
-        SharedPreferences sharedPref = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
+
+
+/*        SharedPreferences sharedPref = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
         String clave = sharedPref.getString("boton", "nada");
         if("activar".equals(clave)) {
             fab.setEnabled(true);
         }else {
             fab.setEnabled(false);
-        }
+        }*/
     }
 
+    private void irLogin() {
+        Intent intent = new Intent(this, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();
+
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if (status.isSuccess()) {
+                    irLogin();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se puede cerrar sesión", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        irLogin();
+    }
+
+    /*
     @Override
     protected void onResume() {
         super.onResume();
@@ -123,8 +186,9 @@ public class Geofencing extends AppCompatActivity
         }else {
             fab.setEnabled(false);
         }
-    }
+    }*/
 
+    /*
     @Override
     protected void onPause() {
         super.onPause();
@@ -136,6 +200,7 @@ public class Geofencing extends AppCompatActivity
             fab.setEnabled(false);
         }
     }
+*/
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -179,7 +244,7 @@ public class Geofencing extends AppCompatActivity
 
     private void createGoogleApi() {
         Log.d(TAG, "createGoogleApi()");
-        if ( googleApiClient == null ) {
+        if (googleApiClient != null) {
             googleApiClient = new GoogleApiClient.Builder( this )
                     .addConnectionCallbacks( this )
                     .addOnConnectionFailedListener( this )
@@ -340,7 +405,7 @@ public class Geofencing extends AppCompatActivity
         // Define marker options
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_faculty))
+
                 .title(title);
         if ( map!=null ) {
 
@@ -415,5 +480,14 @@ public class Geofencing extends AppCompatActivity
                 .fillColor( Color.argb(100, 150,150,150) )
                 .radius( radio );
         geoFenceLimits = map.addCircle( circleOptions );
+    }
+
+    @Override
+    public void enableButton(boolean bandera) {
+        if (bandera) {
+            fab.setEnabled(bandera);
+        } else {
+            fab.setEnabled(bandera);
+        }
     }
 }

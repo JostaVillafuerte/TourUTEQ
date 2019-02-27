@@ -13,6 +13,7 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.jonathanvillafuerte.touruteq.Interfaces.clickEvent;
 import com.jonathanvillafuerte.touruteq.Model.MyResponse;
 import com.jonathanvillafuerte.touruteq.Model.Notification;
 import com.jonathanvillafuerte.touruteq.Model.Sender;
@@ -30,13 +31,13 @@ public class Gts extends IntentService {
     private static final String TAG = Gts.class.getSimpleName();
     public static final int GEOFENCE_NOTIFICATION_ID = 0;
     private SharedPreferences sharedPref;
+    clickEvent cklevent;
 
     public Gts() {
         super(TAG);
     }
     public String asunto="NOTIFICACION DE GEOFENCE!";
     public APIService mService = Common.GETFCMClient();
-    Geofencing geofencing = new Geofencing();
     private SharedPreferences.Editor editor;
 
 
@@ -67,15 +68,18 @@ public class Gts extends IntentService {
             sendNotification( geofenceTransitionDetails );
         }
 
+        //cklevent = (clickEvent) R.id.;
         if (geoFenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER){
-            editor = sharedPref.edit();
+            /*editor = sharedPref.edit();
             editor.putString("boton", "activar");
-            editor.commit();
+            editor.commit();*/
+            //cklevent.enableButton(true);
         }
         if (geoFenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
-            editor = sharedPref.edit();
+           /* editor = sharedPref.edit();
             editor.putString("boton", "desactivar");
-            editor.commit();
+            editor.commit();*/
+            //cklevent.enableButton(false);
         }
 
     }
@@ -118,15 +122,15 @@ public class Gts extends IntentService {
 
     private void sendNotification( String msg) {
 
-        String user = Geofencing.user;
+        String user = Geofencing.usuario;
         String content = user;
 
-        FirebaseMessaging.getInstance().subscribeToTopic("touruteq");
+        FirebaseMessaging.getInstance().subscribeToTopic("clase");
         mService = Common.GETFCMClient();
 
         try {
             Notification notification = new Notification(msg,content);
-            Sender sender = new Sender("/topics/touruteq", notification);
+            Sender sender = new Sender("/topics/clase", notification);
             mService.sendNotification(sender)
                     .enqueue(new Callback<MyResponse>() {
 

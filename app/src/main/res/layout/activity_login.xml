@@ -6,21 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".Login">
 
-    <EditText
-        android:id="@+id/user"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="Ingrese con:"
+        android:textSize="24dp"
+        android:id="@+id/txt" />
 
-    <Button
-        android:id="@+id/btnSendData"
-        android:layout_width="match_parent"
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/user"
-        android:layout_marginTop="5dp"
-        android:text="REGISTRAR" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/txt"
+        android:id="@+id/botonGoogle" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/progress_bar" />
 </RelativeLayout>

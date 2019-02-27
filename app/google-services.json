@@ -77,6 +77,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "677636986032-34qc5noimldpseu7l6jpd2rdhfvp86si.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jonathanvillafuerte.touruteq",
+            "certificate_hash": "cbb951ff1f782377e7897eba4b763de15fb6f5b1"
+          }
+        },
+        {
           "client_id": "677636986032-bbls2k83p2qaflog1u90a7vunad4921b.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -91,8 +99,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677636986032-bbls2k83p2qaflog1u90a7vunad4921b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
