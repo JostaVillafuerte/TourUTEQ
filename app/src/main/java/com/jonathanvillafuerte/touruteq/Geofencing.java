@@ -411,7 +411,7 @@ public class Geofencing extends AppCompatActivity
         // Define marker options
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
-
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_faculty))
                 .title(title);
         if ( map!=null ) {
 
