@@ -121,7 +121,7 @@ public class Geofencing extends AppCompatActivity
                     .into(img);
         }
 
-        usuario = txtName.toString();
+        usuario = txtName.getText().toString();
 
         textLat = (TextView) findViewById(R.id.lat);
         textLong = (TextView) findViewById(R.id.lon);
@@ -212,20 +212,20 @@ public class Geofencing extends AppCompatActivity
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias Empresariales";
         GEOFENCE_RADIUS = 25.0f;
-        Double l1 = Double.parseDouble("-1.0121647");
-        Double l2 = Double.parseDouble("-79.470063");
+        Double l1 = Double.parseDouble("-1.012394");
+        Double l2 = Double.parseDouble("-79.470064");
         markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias Agrarias";
-        l1 = Double.parseDouble("-1.0129049");
-        l2 = Double.parseDouble("-79.469296");
+        l1 = Double.parseDouble("-1.012949");
+        l2 = Double.parseDouble("-79.469434");
         markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias Ambientales";
-        l1 = Double.parseDouble("-1.0126903");
-        l2 = Double.parseDouble("-79.471026");
+        l1 = Double.parseDouble("-1.012679");
+        l2 = Double.parseDouble("-79.471098");
         markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
 
@@ -236,8 +236,14 @@ public class Geofencing extends AppCompatActivity
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Unidad de TICS";
-        l1 = Double.parseDouble("-1.012409");
-        l2 = Double.parseDouble("-79.470364");
+        l1 = Double.parseDouble("-1.012394");
+        l2 = Double.parseDouble("-79.469540");
+        markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
+
+        GEOFENCE_REQ_ID = "Biblioteca";
+        l1 = Double.parseDouble("-1.012348");
+        l2 = Double.parseDouble("-79.468442");
         markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
     }
