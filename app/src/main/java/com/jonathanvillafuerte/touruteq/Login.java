@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("Your_token_id_from_google-services.json")
+                .requestIdToken("677636986032-bbls2k83p2qaflog1u90a7vunad4921b.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
