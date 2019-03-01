@@ -1,10 +1,13 @@
 package com.jonathanvillafuerte.touruteq;
 
+import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.os.ResultReceiver;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,7 +16,6 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.jonathanvillafuerte.touruteq.Interfaces.clickEvent;
 import com.jonathanvillafuerte.touruteq.Model.MyResponse;
 import com.jonathanvillafuerte.touruteq.Model.Notification;
 import com.jonathanvillafuerte.touruteq.Model.Sender;
@@ -31,30 +33,17 @@ public class Gts extends IntentService {
     private static final String TAG = Gts.class.getSimpleName();
     public static final int GEOFENCE_NOTIFICATION_ID = 0;
     private SharedPreferences sharedPref;
-    clickEvent cklevent;
 
     public Gts() {
         super(TAG);
     }
-    public String asunto="NOTIFICACION DE GEOFENCE!";
+
+    public String asunto = "NOTIFICACION DE GEOFENCE!";
     public APIService mService = Common.GETFCMClient();
     private SharedPreferences.Editor editor;
 
-
-
-
     @Override
-    public void onStart( Intent intent, int startId) {
-        super.onStart(intent, startId);
-        sharedPref = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("boton", "desactivar");
-        editor.commit();
-    }
-
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    protected void onHandleIntent(Intent intent) {
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError() ) {
             String errorMsg = getErrorString(geofencingEvent.getErrorCode() );
@@ -67,21 +56,6 @@ public class Gts extends IntentService {
             String geofenceTransitionDetails = getGeofenceTransitionDetails(geoFenceTransition, triggeringGeofences );
             sendNotification( geofenceTransitionDetails );
         }
-
-        //cklevent = (clickEvent) R.id.;
-        if (geoFenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER){
-            /*editor = sharedPref.edit();
-            editor.putString("boton", "activar");
-            editor.commit();*/
-            //cklevent.enableButton(true);
-        }
-        if (geoFenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
-           /* editor = sharedPref.edit();
-            editor.putString("boton", "desactivar");
-            editor.commit();*/
-            //cklevent.enableButton(false);
-        }
-
     }
 
     private static String getErrorString(int errorCode) {

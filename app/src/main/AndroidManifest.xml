@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YourApi_Key" />
+            android:value="AIzaSyAvqjvtsMkwjGEVSKv0st-Mb7Gf8yAY0iA" />
 
         <activity
             android:name=".IdentificacionObjetos"
@@ -37,7 +37,14 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Gts" />
+        <service
+            android:name=".Gts"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.aol.android.geofence.ACTION_RECEIVE_GEOFENCE" />
+            </intent-filter>
+        </service>
         <service android:name=".Service.MyFirebaseService">
             <intent-filter>
                 <action android:name="com.google.firebase.INTANCE_ID_EVENT" />

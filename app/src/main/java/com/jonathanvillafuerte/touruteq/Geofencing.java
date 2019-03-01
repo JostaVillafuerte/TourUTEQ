@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -48,12 +47,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.jonathanvillafuerte.touruteq.Interfaces.clickEvent;
 import com.jonathanvillafuerte.touruteq.Remote.APIService;
 
 public class Geofencing extends AppCompatActivity
         implements
-        clickEvent,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
@@ -90,9 +87,11 @@ public class Geofencing extends AppCompatActivity
 
     public static Intent makeNotificationIntent(Context context, String msg) {
         Intent intent = new Intent(context, Geofencing.class);
-        intent.putExtra( NOTIFICATION_MSG, msg );
+        intent.putExtra(NOTIFICATION_MSG, msg);
         return intent;
     }
+
+    Button logaout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +101,13 @@ public class Geofencing extends AppCompatActivity
         txtName = (TextView) findViewById(R.id.txtNombre);
         txtEmail = (TextView) findViewById(R.id.txtEmail);
         img = (ImageView) findViewById(R.id.imgPerfil);
+        logaout = findViewById(R.id.salir);
+        logaout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout(v);
+            }
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail().build();
@@ -119,6 +125,10 @@ public class Geofencing extends AppCompatActivity
             Glide.with(getApplicationContext())
                     .load(user.getPhotoUrl())
                     .into(img);
+        } else {
+            Intent intent = new Intent(this, Login.class);
+            startActivity(intent);
+            onDestroy();
         }
 
         usuario = txtName.getText().toString();
@@ -139,68 +149,19 @@ public class Geofencing extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
-
-
-
-/*        SharedPreferences sharedPref = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
-        String clave = sharedPref.getString("boton", "nada");
-        if("activar".equals(clave)) {
-            fab.setEnabled(true);
-        }else {
-            fab.setEnabled(false);
-        }*/
     }
 
     private void irLogin() {
         Intent intent = new Intent(this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
     }
 
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
-
-        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if (status.isSuccess()) {
-                    irLogin();
-                } else {
-                    Toast.makeText(getApplicationContext(), "No se puede cerrar sesión", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         irLogin();
     }
-
-    /*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences sharedPref = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
-        String clave = sharedPref.getString("boton", "nada");
-        if("activar".equals(clave)) {
-            fab.setEnabled(true);
-        }else {
-            fab.setEnabled(false);
-        }
-    }*/
-
-    /*
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences sharedPref = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
-        String clave = sharedPref.getString("boton", "nada");
-        if("activar".equals(clave)) {
-            fab.setEnabled(true);
-        }else {
-            fab.setEnabled(false);
-        }
-    }
-*/
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -214,26 +175,26 @@ public class Geofencing extends AppCompatActivity
         GEOFENCE_RADIUS = 25.0f;
         Double l1 = Double.parseDouble("-1.012394");
         Double l2 = Double.parseDouble("-79.470064");
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+        markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias Agrarias";
         l1 = Double.parseDouble("-1.012949");
         l2 = Double.parseDouble("-79.469434");
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+        markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias Ambientales";
         l1 = Double.parseDouble("-1.012679");
         l2 = Double.parseDouble("-79.471098");
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+        markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias de la Ingeniería";
         l1 = Double.parseDouble("-1.0125938");
         l2 = Double.parseDouble("-79.470618");
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+        markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Unidad de TICS";
         l1 = Double.parseDouble("-1.012394");
@@ -244,17 +205,17 @@ public class Geofencing extends AppCompatActivity
         GEOFENCE_REQ_ID = "Biblioteca";
         l1 = Double.parseDouble("-1.012348");
         l2 = Double.parseDouble("-79.468442");
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+        markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
     }
 
     private void createGoogleApi() {
         Log.d(TAG, "createGoogleApi()");
         if (googleApiClient != null) {
-            googleApiClient = new GoogleApiClient.Builder( this )
-                    .addConnectionCallbacks( this )
-                    .addOnConnectionFailedListener( this )
-                    .addApi( LocationServices.API )
+            googleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
                     .build();
         }
     }
@@ -272,16 +233,18 @@ public class Geofencing extends AppCompatActivity
     }
 
     private final int REQ_PERMISSION = 999;
+
     private boolean checkPermission() {
         Log.d(TAG, "checkPermission()");
         return (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED );
+                == PackageManager.PERMISSION_GRANTED);
     }
+
     private void askPermission() {
         Log.d(TAG, "askPermission()");
         ActivityCompat.requestPermissions(
                 this,
-                new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 REQ_PERMISSION
         );
     }
@@ -290,10 +253,10 @@ public class Geofencing extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(TAG, "onRequestPermissionsResult()");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch ( requestCode ) {
+        switch (requestCode) {
             case REQ_PERMISSION: {
-                if ( grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLastKnownLocation();
                 } else {
                     permissionsDenied();
@@ -308,7 +271,7 @@ public class Geofencing extends AppCompatActivity
         // TODO close app and warn user
     }
 
-    private void initGMaps(){
+    private void initGMaps() {
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -322,22 +285,22 @@ public class Geofencing extends AppCompatActivity
     }
 
     private LocationRequest locationRequest;
-    private final int UPDATE_INTERVAL =  1000;
+    private final int UPDATE_INTERVAL = 1000;
     private final int FASTEST_INTERVAL = 900;
 
-    private void startLocationUpdates(){
+    private void startLocationUpdates() {
         Log.i(TAG, "startLocationUpdates()");
         locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
-        if ( checkPermission() )
+        if (checkPermission())
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d(TAG, "onLocationChanged ["+location+"]");
+        Log.d(TAG, "onLocationChanged [" + location + "]");
         lastLocation = location;
         writeActualLocation(location);
     }
@@ -359,9 +322,9 @@ public class Geofencing extends AppCompatActivity
 
     private void getLastKnownLocation() {
         Log.d(TAG, "getLastKnownLocation()");
-        if ( checkPermission() ) {
+        if (checkPermission()) {
             lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            if ( lastLocation != null ) {
+            if (lastLocation != null) {
                 Log.i(TAG, "LasKnown location. " +
                         "Long: " + lastLocation.getLongitude() +
                         " | Lat: " + lastLocation.getLatitude());
@@ -371,14 +334,12 @@ public class Geofencing extends AppCompatActivity
                 Log.w(TAG, "No location retrieved yet");
                 startLocationUpdates();
             }
-        }
-        else askPermission();
+        } else askPermission();
     }
 
-
     private void writeActualLocation(Location location) {
-        textLat.setText( "Lat: " + location.getLatitude() );
-        textLong.setText( "Long: " + location.getLongitude() );
+        textLat.setText("Lat: " + location.getLatitude());
+        textLong.setText("Long: " + location.getLongitude());
         markerLocation(new LatLng(location.getLatitude(), location.getLongitude()));
     }
 
@@ -387,15 +348,16 @@ public class Geofencing extends AppCompatActivity
     }
 
     private Marker locationMarker;
+
     private void markerLocation(LatLng latLng) {
-        Log.i(TAG, "markerLocation("+latLng+")");
-        String title = "Mi Ubicacion es: "+latLng.latitude + ", " + latLng.longitude;
+        Log.i(TAG, "markerLocation(" + latLng + ")");
+        String title = "Mi Ubicacion es: " + latLng.latitude + ", " + latLng.longitude;
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_person))
                 .title(title);
-        if ( map!=null ) {
-            if ( locationMarker != null )
+        if (map != null) {
+            if (locationMarker != null)
                 locationMarker.remove();
             locationMarker = map.addMarker(markerOptions);
             float zoom = 19f;
@@ -405,65 +367,65 @@ public class Geofencing extends AppCompatActivity
     }
 
     private Marker geoFenceMarker;
-    private void markerForGeofence(LatLng latLng,String nombregeofen,float radio ) {
-        Log.i(TAG, "markerForGeofence("+latLng+")");
-        String title = ""+nombregeofen+":"+latLng.latitude + ", " + latLng.longitude;
+
+    private void markerForGeofence(LatLng latLng, String nombregeofen, float radio) {
+        Log.i(TAG, "markerForGeofence(" + latLng + ")");
+        String title = "" + nombregeofen + ":" + latLng.latitude + ", " + latLng.longitude;
         // Define marker options
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_faculty))
                 .title(title);
-        if ( map!=null ) {
-
-
+        if (map != null) {
             geoFenceMarker = map.addMarker(markerOptions);
-            drawGeofence(geoFenceMarker,radio);
-            startGeofence(latLng,nombregeofen,radio);
+            drawGeofence(geoFenceMarker, radio);
+            startGeofence(latLng, nombregeofen, radio);
         }
     }
 
 
-    private void startGeofence(LatLng latLng,String nombregeofen,float radio ) {
+    private void startGeofence(LatLng latLng, String nombregeofen, float radio) {
         Log.i(TAG, "startGeofence()");
-        if( geoFenceMarker != null ) {
-            Geofence geofence = createGeofence( latLng,nombregeofen, radio );
-            GeofencingRequest geofenceRequest = createGeofenceRequest( geofence );
-            addGeofence( geofenceRequest );
+        if (geoFenceMarker != null) {
+            Geofence geofence = createGeofence(latLng, nombregeofen, radio);
+            GeofencingRequest geofenceRequest = createGeofenceRequest(geofence);
+            addGeofence(geofenceRequest);
         } else {
             Log.e(TAG, "Geofence marker is null");
         }
     }
 
-    private Geofence createGeofence( LatLng latLng,String nombregeo, float radius ) {
+    private Geofence createGeofence(LatLng latLng, String nombregeo, float radius) {
         Log.d(TAG, "createGeofence");
         return new Geofence.Builder()
                 .setRequestId(nombregeo)
-                .setCircularRegion( latLng.latitude, latLng.longitude, radius)
-                .setExpirationDuration( GEO_DURATION )
-                .setTransitionTypes( Geofence.GEOFENCE_TRANSITION_ENTER
-                        | Geofence.GEOFENCE_TRANSITION_EXIT )
+                .setCircularRegion(latLng.latitude, latLng.longitude, radius)
+                .setExpirationDuration(GEO_DURATION)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER
+                        | Geofence.GEOFENCE_TRANSITION_EXIT)
                 .build();
     }
 
     // Create a Geofence Request
-    private GeofencingRequest createGeofenceRequest( Geofence geofence ) {
+    private GeofencingRequest createGeofenceRequest(Geofence geofence) {
         Log.d(TAG, "createGeofenceRequest");
         return new GeofencingRequest.Builder()
-                .setInitialTrigger( GeofencingRequest.INITIAL_TRIGGER_ENTER )
-                .addGeofence( geofence )
+                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                .addGeofence(geofence)
                 .build();
     }
 
-    private PendingIntent geoFencePendingIntent;
+    public PendingIntent geoFencePendingIntent;
     private final int GEOFENCE_REQ_CODE = 0;
+
     private PendingIntent createGeofencePendingIntent() {
         Log.d(TAG, "createGeofencePendingIntent");
-        if ( geoFencePendingIntent != null )
+        if (geoFencePendingIntent != null)
             return geoFencePendingIntent;
 
-        Intent intent = new Intent( this, Gts.class);
+        Intent intent = new Intent(this, Gts.class);
         return PendingIntent.getService(
-                this, GEOFENCE_REQ_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT );
+                this, GEOFENCE_REQ_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void addGeofence(GeofencingRequest request) {
@@ -477,23 +439,15 @@ public class Geofencing extends AppCompatActivity
     }
 
     private Circle geoFenceLimits;
+
     private void drawGeofence(Marker geoFenceMarker, float radio) {
         Log.d(TAG, "drawGeofence()");
 
         CircleOptions circleOptions = new CircleOptions()
-                .center( geoFenceMarker.getPosition())
-                .strokeColor(Color.argb(50, 70,70,70))
-                .fillColor( Color.argb(100, 150,150,150) )
-                .radius( radio );
-        geoFenceLimits = map.addCircle( circleOptions );
-    }
-
-    @Override
-    public void enableButton(boolean bandera) {
-        if (bandera) {
-            fab.setEnabled(bandera);
-        } else {
-            fab.setEnabled(bandera);
-        }
+                .center(geoFenceMarker.getPosition())
+                .strokeColor(Color.argb(50, 70, 70, 70))
+                .fillColor(Color.argb(100, 150, 150, 150))
+                .radius(radio);
+        geoFenceLimits = map.addCircle(circleOptions);
     }
 }

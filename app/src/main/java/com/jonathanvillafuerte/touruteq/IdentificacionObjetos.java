@@ -45,7 +45,7 @@ import java.util.Locale;
 
 public class IdentificacionObjetos extends AppCompatActivity {
 
-    private static final String CLOUD_VISION_API_KEY = "Your_Api_Key";
+    private static final String CLOUD_VISION_API_KEY = "AIzaSyDOPzLOTjzHuNu_rzRXNzNvocwuC_8a2SI";
     public static final String FILE_NAME = "temp.jpg";
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
     private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
@@ -65,6 +65,7 @@ public class IdentificacionObjetos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identificacion_objetos);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
