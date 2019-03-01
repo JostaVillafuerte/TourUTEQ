@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -46,7 +44,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("677636986032-bbls2k83p2qaflog1u90a7vunad4921b.apps.googleusercontent.com")
+                .requestIdToken("Your_token_id_from_google-services.json")
                 .requestEmail()
                 .build();
 
@@ -62,6 +60,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                googleApiClient.clearDefaultAccountAndReconnect();
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(intent, SING_IN_CODE);
             }

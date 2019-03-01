@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
             android:text="Cerrar Sesión"
-            android:textColor="@color/colorBlanco"
-            android:onClick="logout" />
+            android:textColor="@color/colorBlanco" />
     </LinearLayout>
 </LinearLayout>
