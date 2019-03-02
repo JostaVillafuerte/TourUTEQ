@@ -23,6 +23,13 @@
         android:layout_below="@+id/txt"
         android:id="@+id/botonGoogle" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonGoogle"
+        android:id="@+id/ingresoFacial"
+        android:text="Ingreso facial" />
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

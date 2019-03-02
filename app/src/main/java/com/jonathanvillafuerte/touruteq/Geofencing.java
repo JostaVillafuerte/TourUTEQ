@@ -1,6 +1,7 @@
 package com.jonathanvillafuerte.touruteq;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.jonathanvillafuerte.touruteq.FaceAPI.Detect;
 import com.jonathanvillafuerte.touruteq.Remote.APIService;
 
 public class Geofencing extends AppCompatActivity
@@ -80,6 +83,8 @@ public class Geofencing extends AppCompatActivity
 
     private MapFragment mapFragment;
     public FloatingActionButton fab;
+
+    public FloatingActionButton fab_detection;
 
     private static final long GEO_DURATION = 60 * 60 * 1000;
 
@@ -149,6 +154,19 @@ public class Geofencing extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        fab_detection = (FloatingActionButton) findViewById(R.id.fab_add_faces);
+        fab_detection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Detect.class);
+                intent.putExtra("nameUsuario", txtName.getText());
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(),txtName.getText(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+
     }
 
     private void irLogin() {
