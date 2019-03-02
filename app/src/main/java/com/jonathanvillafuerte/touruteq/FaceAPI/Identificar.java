@@ -79,9 +79,9 @@ public class Identificar extends AppCompatActivity {
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView txtName = (TextView) findViewById(R.id.txtNombre);
+                TextView txtName = (TextView) findViewById(R.id.txtResultados);
                 Intent intent = new Intent(getApplicationContext(), Geofencing.class);
-                intent.putExtra("nameUsuario", txtName.getText().toString());
+                intent.putExtra("nameUsuario", txtName.getText());
                 startActivity(intent);
 
             }

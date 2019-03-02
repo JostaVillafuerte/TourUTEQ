@@ -60,7 +60,7 @@ public class Geofencing extends AppCompatActivity
         OnMapReadyCallback,
         ResultCallback<Status> {
 
-    private TextView txtName, txtEmail, txtUid;
+    private TextView txtName, txtEmail;
     private ImageView img;
 
     FirebaseAuth firebaseAuth;
@@ -122,14 +122,17 @@ public class Geofencing extends AppCompatActivity
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        Bundle parametros = this.getIntent().getExtras();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            OpcionAcceso = "F";
             txtName.setText(user.getDisplayName());
             txtEmail.setText(user.getEmail());
             Glide.with(getApplicationContext())
                     .load(user.getPhotoUrl())
                     .into(img);
+        } else if (parametros != null) {
+            txtName.setText(parametros.getString("nameUsuario"));
         } else {
             Intent intent = new Intent(this, Login.class);
             startActivity(intent);

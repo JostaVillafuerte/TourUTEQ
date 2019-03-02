@@ -63,8 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end|left"
-            android:src="@drawable/ic_group_collapse_05"
-            app:backgroundTint="@color/colorBlanco"
+            android:src="@drawable/ic_facial"
+            app:backgroundTint="@color/colorPrimary"
             android:layout_margin="16dp"
             app:fabSize="normal"
             app:maxImageSize="40dp" />

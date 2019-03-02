@@ -7,28 +7,33 @@
     tools:context=".Login">
 
     <TextView
+        android:id="@+id/txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="237dp"
         android:text="Ingrese con:"
-        android:textSize="24dp"
-        android:id="@+id/txt" />
+        android:textSize="24dp" />
 
     <com.google.android.gms.common.SignInButton
-        android:layout_width="wrap_content"
+        android:id="@+id/botonGoogle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_below="@+id/txt"
-        android:id="@+id/botonGoogle" />
+        android:layout_marginTop="58dp"
+        android:padding="10dp" />
 
     <Button
+        android:id="@+id/ingresoFacial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/botonGoogle"
-        android:id="@+id/ingresoFacial"
-        android:text="Ingreso facial" />
+        android:layout_marginTop="30dp"
+        android:background="@color/colorPrimary"
+        android:text="Autenticación Facial"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <ProgressBar
         android:layout_width="wrap_content"
