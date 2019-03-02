@@ -197,25 +197,21 @@ public class Geofencing extends AppCompatActivity
         Double l1 = Double.parseDouble("-1.012394");
         Double l2 = Double.parseDouble("-79.470064");
         markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias Agrarias";
         l1 = Double.parseDouble("-1.012949");
         l2 = Double.parseDouble("-79.469434");
         markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias Ambientales";
         l1 = Double.parseDouble("-1.012679");
         l2 = Double.parseDouble("-79.471098");
         markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Facultad de Ciencias de la Ingeniería";
         l1 = Double.parseDouble("-1.0125938");
         l2 = Double.parseDouble("-79.470618");
         markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
 
         GEOFENCE_REQ_ID = "Unidad de TICS";
         l1 = Double.parseDouble("-1.012394");
@@ -227,7 +223,6 @@ public class Geofencing extends AppCompatActivity
         l1 = Double.parseDouble("-1.012348");
         l2 = Double.parseDouble("-79.468442");
         markerForGeofence(new LatLng(l1, l2), GEOFENCE_REQ_ID, GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING " + GEOFENCE_REQ_ID + " CREADO", Toast.LENGTH_SHORT).show();
     }
 
     private void createGoogleApi() {

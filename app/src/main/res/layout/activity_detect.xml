@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:text="Id de la persona" />
 
     <TextView
@@ -27,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_below="@+id/txtPersonId"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="35dp"
         app:srcCompat="@android:color/background_light" />
 
     <TextView
@@ -35,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="18dp"
         android:text="Se esta procesando la información." />
 
     <Button
@@ -43,23 +42,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtResultados"
-        android:layout_marginTop="80dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="10dp"
         android:background="@color/colorPrimary"
         android:text="Seleccionar Imagen"
-        android:textColor="@color/colorSecundary"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp" />
+        android:textColor="@color/colorSecundary" />
 
     <Button
         android:id="@+id/btnGuardar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnCargarImg"
-        android:layout_marginTop="27dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
         android:background="@color/colorPrimary"
         android:text="Guardar Fotografía"
-        android:textColor="@color/colorSecundary"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp" />
+        android:textColor="@color/colorSecundary" />
 
 </RelativeLayout>
